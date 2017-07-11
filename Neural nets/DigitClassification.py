@@ -2,9 +2,15 @@ import numpy as np
 import random
 
 def sigmoid(z):
+	"""
+	Regular sigmoid function
+	"""
 	return 1.0/(1.0+(np.exp(-z)))
 
 def sigmoid_prime(z):
+	"""
+	returns the derivative of the sigmoid function
+	"""
 	sig = sigmoid(z)
 	return sig*(1-sig)
 
@@ -58,6 +64,7 @@ class NetworkDriver:
 			delta_nabla_b, delta_nabla_w = self.backprop(x, y)
 			nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
 			nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
+			print nabla_b
 
 		self.weights = [w-(eta/len(mini_batch))*nw for w, nw in zip(self.weights, nabla_w)]
 		self.biases = [b-(eta/len(mini_batch))*nb for b, nb in zip(self.biases, nabla_b)]
